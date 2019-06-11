@@ -38,20 +38,27 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-ev=np.loadtxt("results_base/set_mlp_srelu_sgd_cifar10_acc.txt")
-fix=np.loadtxt("results_base/fixprob_mlp_srelu_sgd_cifar10_acc.txt")
-dense=np.loadtxt("results_base/dense_mlp_srelu_sgd_cifar10_acc.txt")
+e1=np.loadtxt("results_base/dense_mlp_srelu_sgd_cifar10_acc.txt")
+e2=np.loadtxt("results_base/fixprob_mlp_srelu_sgd_cifar10_acc.txt")
+e3=np.loadtxt("results_base/set_mlp_srelu_sgd_cifar10_acc.txt")
+e4=np.loadtxt("results_basebig/dense_mlp_srelu_sgd_cifar10_acc.txt")
+e5=np.loadtxt("results_basebig/fixprob_mlp_srelu_sgd_cifar10_acc.txt")
+e6=np.loadtxt("results_basebig/set_mlp_srelu_sgd_cifar10_acc.txt")
 
 plt.xlabel("Epochs[#]")
 plt.ylabel("CIFAR10\nAccuracy [%]")
 
 
-plt.plot(dense*100,'b',label="MLP")
-plt.plot(fix*100,'y',label="MLP$_{FixProb}$")
-plt.plot(ev*100,'r',label="SET-MLP")
+plt.plot(e1*100,label="dense (sample)")
+plt.plot(e2*100,label="fix (sample)")
+plt.plot(e3*100,label="set (sample)")
+plt.plot(e4*100,label="dense")
+plt.plot(e5*100,label="fix")
+plt.plot(e6*100,label="set")
+
 
 plt.legend(loc=4)
 plt.grid(True)
 plt.tight_layout()
-plt.savefig("cifar10_models_performance.pdf")
+plt.savefig("cifar10_models_performance_1.pdf")
 plt.close()

@@ -55,7 +55,7 @@ class MLP_CIFAR10:
         # set model parameters
         self.epsilon = 20 # control the sparsity level as discussed in the paper
         self.batch_size = 100 # batch size
-        self.maxepoches = 1 # number of epochs
+        self.maxepoches = 1000 # number of epochs
         self.learning_rate = 0.01 # SGD learning rate
         self.num_classes = 10 # number of classes
         self.momentum=0.9 # SGD momentum
