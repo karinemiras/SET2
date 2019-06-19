@@ -1,8 +1,11 @@
 #!/bin/bash
 
-python dense_mlp_keras_cifar10.py --sample_prop 0.02 --exp_name base
-python fixprob_mlp_keras_cifar10.py --sample_prop 0.02 --exp_name base
-python set_mlp_keras_cifar10.py --sample_prop 0.02 --exp_name base
-python dense_mlp_keras_cifar10.py --sample_prop 1 --exp_name basebig
-python fixprob_mlp_keras_cifar10.py --sample_prop 1 --exp_name basebig
-python set_mlp_keras_cifar10.py --sample_prop 1 --exp_name basebig
+#python dense_mlp_keras_cifar10.py --sample_prop 0.02 --exp_name base
+#python fixprob_mlp_keras_cifar10.py --sample_prop 0.02 --exp_name base
+#python set_mlp_keras_cifar10.py --sample_prop 0.02 --exp_name base
+#python dense_mlp_keras_cifar10.py --sample_prop 1 --exp_name basebig
+#python fixprob_mlp_keras_cifar10.py --sample_prop 1 --exp_name basebig
+#python set_mlp_keras_cifar10.py --sample_prop 1 --exp_name basebig
+
+python set2_mlp_keras_cifar10.py --sample_prop 0.02 --epochs_per_generation 20 --exp_name new20
+python set2_mlp_keras_cifar10.py --sample_prop 0.02 --epochs_per_generation 10 --exp_name new10

@@ -124,7 +124,7 @@ class SET2_MLP_CIFAR10:
         self.num_classes = 10 # number of classes
         self.momentum = 0.9 # SGD momentum
         self.pop_size = 10 # number of individuals in the evolving population
-        self.epochs_per_generation = 20 # number of epochs to train solutions of a generation (naturally, number of generations is maxepoches/epochs_per_generation
+        self.epochs_per_generation = int(config.epochs_per_generation) # number of epochs to train solutions of a generation (naturally, number of generations is maxepoches/epochs_per_generation
 
         # generate an Erdos Renyi sparse weights mask for each layer
         [self.noPar1, wm1, self.mut_rate_wm1] = self.createWeightsMask(self.epsilon, 32 * 32 * 3, 4000)
@@ -215,21 +215,26 @@ class SET2_MLP_CIFAR10:
                 best_individual = individual_index
         return best_individual
 
-    def cross(self, w1, w2):
+    def cross(self, wm_p1, wm_p2, w_p1, w_p2):
 
-        if w1 is not None and w2 is not None:
-            nlines = len(w1)
-            ncols = len(w1[0])
-            points = np.random.uniform(0, 1, nlines)
-            points = np.repeat(points, ncols)
-            points = points.reshape(nlines, ncols) * ncols
-            indices_aux = np.tile(np.arange(ncols), nlines).reshape(nlines, ncols)
-            w = np.where(indices_aux < points, w1, w2)
+        nlines = len(w_p1)
+        ncols = len(w_p1[0])
+        points = np.random.uniform(0, 1, nlines)
+        points = np.repeat(points, ncols)
+        points = points.reshape(nlines, ncols) * ncols
+        indices_aux = np.tile(np.arange(ncols), nlines).reshape(nlines, ncols)
 
-        return w
+        w = np.where(indices_aux < points, w_p1, w_p2)
+        if wm_p1 is not None:
+            wm = np.where(indices_aux < points, wm_p1, wm_p2)
+
+        if wm_p1 is not None:
+            return wm, w
+        else:
+            return w
 
     def evolve(self, individuals_accuracies):
-        print('>>> Evolution step')
+        print(' \n >>> Evolution step <<< \n')
 
         offspring = []
 
@@ -243,29 +248,30 @@ class SET2_MLP_CIFAR10:
                 parent2 = self.tournament_selection()
             #print('new individual '+str(individual)+' has parent1 '+str(parent1)+' and parent2 '+str(parent2))
 
-            wm1 = self.cross(self.population[parent1].wm1,
-                             self.population[parent2].wm1)
-
-            wm2 = self.cross(self.population[parent1].wm2,
-                             self.population[parent2].wm2)
-
-            wm3 = self.cross(self.population[parent1].wm3,
-                             self.population[parent2].wm3)
-
             w1 = copy.copy(self.population[parent1].w1)
-            w1[0] = self.cross(self.population[parent1].w1[0],
-                               self.population[parent2].w1[0])
-
             w2 = copy.copy(self.population[parent1].w2)
-            w2[0] = self.cross(self.population[parent1].w2[0],
-                               self.population[parent2].w2[0])
-
             w3 = copy.copy(self.population[parent1].w3)
-            w3[0] = self.cross(self.population[parent1].w3[0],
-                               self.population[parent2].w3[0])
-
             w4 = copy.copy(self.population[parent1].w4)
-            w4[0] = self.cross(self.population[parent1].w4[0],
+
+            wm1, w1[0] = self.cross(self.population[parent1].wm1,
+                                    self.population[parent2].wm1,
+                                    self.population[parent1].w1[0],
+                                    self.population[parent2].w1[0])
+
+            wm2, w2[0] = self.cross(self.population[parent1].wm2,
+                                    self.population[parent2].wm2,
+                                    self.population[parent1].w2[0],
+                                    self.population[parent2].w2[0]
+                                    )
+
+            wm3, w3[0] = self.cross(self.population[parent1].wm3,
+                                    self.population[parent2].wm3,
+                                    self.population[parent1].w3[0],
+                                    self.population[parent2].w3[0])
+
+
+            w4[0] = self.cross(None, None,
+                               self.population[parent1].w4[0],
                                self.population[parent2].w4[0])
 
             new_individual = Individual(wm1, wm2, wm3,
@@ -273,6 +279,7 @@ class SET2_MLP_CIFAR10:
                                         w1, w2, w3, w4
                                         )
             new_individual.mutate()
+
             offspring.append(new_individual)
 
         self.population = offspring
@@ -322,14 +329,9 @@ class SET2_MLP_CIFAR10:
                 individuals_accuracies.append(historytemp.history['val_acc'][0])
                 self.all_accuracies.append(historytemp.history['val_acc'][0])
 
-                print('Individual ' + str(individual))
-                print(' n. params of wm1 ' + str(np.sum(self.population[individual].wm1)))
-                print(' n. params of wm2 ' + str(np.sum(self.population[individual].wm2)))
-                print(' n. params of wm3 ' + str(np.sum(self.population[individual].wm3)))
-
 
             self.best_accuracies.append(max(individuals_accuracies))
-            print('Best acc '+ str(round(self.best_accuracies[-1], 2)))
+            print(' \n >>> Best acc '+ str(round(self.best_accuracies[-1], 2)) + ' \n')
 
             # evolves models after a number of epochs
             if (epoch+1) % self.epochs_per_generation == 0:
@@ -340,6 +342,12 @@ class SET2_MLP_CIFAR10:
             K.clear_session()
 
             self.create_model()
+
+        for individual in range(0, self.pop_size):
+            print('Individual ' + str(individual))
+            print(' n. params of wm1 ' + str(np.sum(self.population[individual].wm1)))
+            print(' n. params of wm2 ' + str(np.sum(self.population[individual].wm2)))
+            print(' n. params of wm3 ' + str(np.sum(self.population[individual].wm3)))
 
         self.best_accuracies = np.asarray(self.best_accuracies)
 
@@ -380,6 +388,10 @@ if __name__ == '__main__':
 
     parser.add_argument('--exp_name',
                         default='new')
+
+    parser.add_argument('--epochs_per_generation',
+                        default=20)
+
 
     config = parser.parse_args()
 
