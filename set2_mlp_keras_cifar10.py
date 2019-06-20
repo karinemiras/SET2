@@ -234,7 +234,6 @@ class SET2_MLP_CIFAR10:
             return w
 
     def evolve(self, individuals_accuracies):
-        print(' \n >>> Evolution step <<< \n')
 
         offspring = []
 
@@ -331,11 +330,17 @@ class SET2_MLP_CIFAR10:
 
 
             self.best_accuracies.append(max(individuals_accuracies))
-            print(' \n >>> Best acc '+ str(round(self.best_accuracies[-1], 2)) + ' \n')
+
+            print(' \n >>> Best acc '+ str(round(self.best_accuracies[-1], 4)) + ' \n')
+            file = open("results_"+config.exp_name+"/set2_mlp_srelu_sgd_cifar10_acc.txt",'a')
+            file.write(str(round(self.best_accuracies[-1], 4))+ '\n')
+            file.close()
+
+            self.update_population()
 
             # evolves models after a number of epochs
             if (epoch+1) % self.epochs_per_generation == 0:
-                self.update_population()
+                print(' \n >>> Evolution step <<< \n')
                 self.evolve(individuals_accuracies)
 
             #ugly hack to avoid tensorflow memory increase for multiple fit_generator calls. Theano shall work more nicely this but it is outdated in general
@@ -349,7 +354,6 @@ class SET2_MLP_CIFAR10:
             print(' n. params of wm2 ' + str(np.sum(self.population[individual].wm2)))
             print(' n. params of wm3 ' + str(np.sum(self.population[individual].wm3)))
 
-        self.best_accuracies = np.asarray(self.best_accuracies)
 
     def read_data(self):
 
@@ -403,7 +407,6 @@ if __name__ == '__main__':
 
     # save accuracies over for all training epochs
     # in "results" folder you can find the output of running this file
-    np.savetxt("results_"+config.exp_name+"/set2_mlp_srelu_sgd_cifar10_acc.txt", np.asarray(model.best_accuracies))
     np.savetxt("results_" + config.exp_name + "/set2_mlp_srelu_sgd_cifar10_acc_all.txt", np.asarray(model.all_accuracies))
 
 
