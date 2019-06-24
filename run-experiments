@@ -7,5 +7,12 @@
 #python fixprob_mlp_keras_cifar10.py --sample_prop 1 --exp_name basebig
 #python set_mlp_keras_cifar10.py --sample_prop 1 --exp_name basebig
 
-python set2_mlp_keras_cifar10.py --sample_prop 0.02 --epochs_per_generation 20 --exp_name new20
-python set2_mlp_keras_cifar10.py --sample_prop 0.02 --epochs_per_generation 10 --exp_name new10
+#python set2_mlp_keras_cifar10.py --sample_prop 0.02 --epochs_per_generation 20 --exp_name new20
+#python set2_mlp_keras_cifar10.py --sample_prop 0.02 --epochs_per_generation 50 --exp_name new50
+#python set2_mlp_keras_cifar10.py --sample_prop 0.02 --epochs_per_generation 10 --exp_name new10
+#python set2_mlp_keras_cifar10.py --sample_prop 0.02 --epochs_per_generation 30 --exp_name new30
+#python set2_mlp_keras_cifar10.py --sample_prop 0.02 --epochs_per_generation 40 --exp_name new40
+
+python set2_mlp_keras_cifar10.py --sample_prop 0.02 --epochs_per_generation 50 --exp_name new50_2
+python set2_mlp_keras_cifar10.py --sample_prop 0.02 --epochs_per_generation 10 --exp_name new10_2
+

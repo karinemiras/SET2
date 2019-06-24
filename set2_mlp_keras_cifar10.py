@@ -309,11 +309,12 @@ class SET2_MLP_CIFAR10:
 
         # training process in a for loop
 
-        self.best_accuracies = []
         self.all_accuracies = []
         for epoch in range(0, self.maxepoches):
 
             individuals_accuracies = []
+            individuals_train_accuracies = []
+            individuals_params = []
             for individual in range(0, self.pop_size):
 
                 sgd = optimizers.SGD(lr=self.learning_rate, momentum=self.momentum)
@@ -325,15 +326,25 @@ class SET2_MLP_CIFAR10:
                                                                               epochs=epoch,
                                                                               validation_data=(x_test, y_test),
                                                                               initial_epoch=epoch-1)
+
                 individuals_accuracies.append(historytemp.history['val_acc'][0])
+                individuals_train_accuracies.append(historytemp.history['acc'][0])
+                individuals_params.append(np.sum(self.population[individual].wm1) + np.sum(self.population[individual].wm2) + np.sum(self.population[individual].wm3))
+
                 self.all_accuracies.append(historytemp.history['val_acc'][0])
 
+            best = np.argmax(individuals_accuracies)
 
-            self.best_accuracies.append(max(individuals_accuracies))
-
-            print(' \n >>> Best acc '+ str(round(self.best_accuracies[-1], 4)) + ' \n')
             file = open("results_"+config.exp_name+"/set2_mlp_srelu_sgd_cifar10_acc.txt",'a')
-            file.write(str(round(self.best_accuracies[-1], 4))+ '\n')
+            file.write(str(round(individuals_accuracies[best], 4))+ '\n')
+            file.close()
+
+            file = open("results_"+config.exp_name+"/set2_mlp_srelu_sgd_cifar10_acc_tr.txt",'a')
+            file.write(str(round(individuals_train_accuracies[best], 4))+ '\n')
+            file.close()
+
+            file = open("results_"+config.exp_name+"/set2_mlp_srelu_sgd_cifar10_params.txt",'a')
+            file.write(str(round(individuals_params[best], 4))+ '\n')
             file.close()
 
             self.update_population()
@@ -347,12 +358,6 @@ class SET2_MLP_CIFAR10:
             K.clear_session()
 
             self.create_model()
-
-        for individual in range(0, self.pop_size):
-            print('Individual ' + str(individual))
-            print(' n. params of wm1 ' + str(np.sum(self.population[individual].wm1)))
-            print(' n. params of wm2 ' + str(np.sum(self.population[individual].wm2)))
-            print(' n. params of wm3 ' + str(np.sum(self.population[individual].wm3)))
 
 
     def read_data(self):

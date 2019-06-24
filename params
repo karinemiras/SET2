@@ -1,0 +1,56 @@
+Individual 0
+ n. params of wm1 2105306.0
+ n. params of wm2 1203606.0
+ n. params of wm3 1204154.0
+Individual 1
+ n. params of wm1 2104435.0
+ n. params of wm2 1205560.0
+ n. params of wm3 1204218.0
+Individual 2
+ n. params of wm1 2104363.0
+ n. params of wm2 1205675.0
+ n. params of wm3 1204941.0
+Individual 3
+ n. params of wm1 2102951.0
+ n. params of wm2 1204493.0
+ n. params of wm3 1205815.0
+Individual 4
+ n. params of wm1 2104202.0
+ n. params of wm2 1205804.0
+ n. params of wm3 1203381.0
+Individual 5
+ n. params of wm1 2104742.0
+ n. params of wm2 1204071.0
+ n. params of wm3 1204955.0
+Individual 6
+ n. params of wm1 2104262.0
+ n. params of wm2 1205879.0
+ n. params of wm3 1203923.0
+Individual 7
+ n. params of wm1 2104767.0
+ n. params of wm2 1205728.0
+ n. params of wm3 1205191.0
+Individual 8
+ n. params of wm1 2102349.0
+ n. params of wm2 1205357.0
+ n. params of wm3 1203844.0
+Individual 9
+ n. params of wm1 2104530.0
+ n. params of wm2 1205076.0
+ n. params of wm3 1204399.0
+
+
+
+Layer (type)                 Output Shape              Param #   
+=================================================================
+  
+_________________________________________________________________
+sparse_1 (Dense)             (None, 4000)              12292000  
+
+_________________________________________________________________
+sparse_2 (Dense)             (None, 1000)              4001000   
+
+sparse_3 (Dense)             (None, 4000)              4004000   
+_________________________________________________________________
+
+

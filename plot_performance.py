@@ -38,15 +38,22 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
+plt.figure(figsize=(10,5))
+
+plt.xlabel("Epochs[#]")
+plt.ylabel("CIFAR10\nAccuracy [%]")
+
+
 e1=np.loadtxt("results_base/dense_mlp_srelu_sgd_cifar10_acc.txt")
 e2=np.loadtxt("results_base/fixprob_mlp_srelu_sgd_cifar10_acc.txt")
 e3=np.loadtxt("results_base/set_mlp_srelu_sgd_cifar10_acc.txt")
 e4=np.loadtxt("results_basebig/dense_mlp_srelu_sgd_cifar10_acc.txt")
 e5=np.loadtxt("results_basebig/fixprob_mlp_srelu_sgd_cifar10_acc.txt")
 e6=np.loadtxt("results_basebig/set_mlp_srelu_sgd_cifar10_acc.txt")
-
-plt.xlabel("Epochs[#]")
-plt.ylabel("CIFAR10\nAccuracy [%]")
+e7=np.loadtxt("results_new10/set2_mlp_srelu_sgd_cifar10_acc.txt")
+e8=np.loadtxt("results_new20/set2_mlp_srelu_sgd_cifar10_acc.txt")
+e9=np.loadtxt("results_new30/set2_mlp_srelu_sgd_cifar10_acc.txt")
+e10=np.loadtxt("results_new50/set2_mlp_srelu_sgd_cifar10_acc.txt")
 
 
 plt.plot(e1*100,label="dense (sample)")
@@ -55,10 +62,27 @@ plt.plot(e3*100,label="set (sample)")
 plt.plot(e4*100,label="dense")
 plt.plot(e5*100,label="fix")
 plt.plot(e6*100,label="set")
+plt.plot(e7*100,label="set2 (sample) 10")
+plt.plot(e8*100,label="set2 (sample) 20")
+plt.plot(e9*100,label="set2 (sample) 30")
+plt.plot(e10*100,label="set2 (sample) 50")
 
 
-plt.legend(loc=4)
+# e1=np.loadtxt("results_new10/set2_mlp_srelu_sgd_cifar10_acc.txt")
+# e2=np.loadtxt("results_new20/set2_mlp_srelu_sgd_cifar10_acc.txt")
+# e3=np.loadtxt("results_new30/set2_mlp_srelu_sgd_cifar10_acc.txt")
+# e4=np.loadtxt("results_new50/set2_mlp_srelu_sgd_cifar10_acc.txt")
+#
+#
+# plt.plot(e1*100,label="set2 10")
+# plt.plot(e2*100,label="set2 20")
+# plt.plot(e3*100,label="set2 30")
+# plt.plot(e4*100,label="set2 50")
+
+
+
+plt.legend(bbox_to_anchor=(1.1, 1.05))
 plt.grid(True)
 plt.tight_layout()
-plt.savefig("cifar10_models_performance_1.pdf")
+plt.savefig("cifar10_models_performance_2.pdf")
 plt.close()
