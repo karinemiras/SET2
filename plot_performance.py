@@ -54,18 +54,21 @@ e7=np.loadtxt("results_new10/set2_mlp_srelu_sgd_cifar10_acc.txt")
 e8=np.loadtxt("results_new20/set2_mlp_srelu_sgd_cifar10_acc.txt")
 e9=np.loadtxt("results_new30/set2_mlp_srelu_sgd_cifar10_acc.txt")
 e10=np.loadtxt("results_new50/set2_mlp_srelu_sgd_cifar10_acc.txt")
+e11=np.loadtxt("results_new50_2/set2_mlp_srelu_sgd_cifar10_acc.txt")
+e12=np.loadtxt("results_new10_2/set2_mlp_srelu_sgd_cifar10_acc.txt")
 
-
-plt.plot(e1*100,label="dense (sample)")
-plt.plot(e2*100,label="fix (sample)")
-plt.plot(e3*100,label="set (sample)")
-plt.plot(e4*100,label="dense")
-plt.plot(e5*100,label="fix")
-plt.plot(e6*100,label="set")
-plt.plot(e7*100,label="set2 (sample) 10")
-plt.plot(e8*100,label="set2 (sample) 20")
-plt.plot(e9*100,label="set2 (sample) 30")
-plt.plot(e10*100,label="set2 (sample) 50")
+plt.plot(e1*100,label="dense (sample)",  linewidth=0.7)
+plt.plot(e2*100,label="fix (sample)",  linewidth=0.7)
+plt.plot(e3*100,label="set (sample)",  linewidth=0.7)
+plt.plot(e4*100,label="dense",  linewidth=0.7)
+plt.plot(e5*100,label="fix",  linewidth=0.7)
+plt.plot(e6*100,label="set",  linewidth=0.7)
+#plt.plot(e7*100,label="set2 (sample) 10",  linewidth=0.7)
+#plt.plot(e8*100,label="set2 (sample) 20,  linewidth=0.7")
+#plt.plot(e9*100,label="set2 (sample) 30,  linewidth=0.7")
+#plt.plot(e10*100,label="set2 (sample) 50" , linewidth=0.7)
+plt.plot(e11*100,label="set2 (sample) 50.",  linewidth=0.7)
+plt.plot(e12*100,label="set2 (sample) 10.",  linewidth=0.7)
 
 
 # e1=np.loadtxt("results_new10/set2_mlp_srelu_sgd_cifar10_acc.txt")
@@ -85,4 +88,23 @@ plt.legend(bbox_to_anchor=(1.1, 1.05))
 plt.grid(True)
 plt.tight_layout()
 plt.savefig("cifar10_models_performance_2.pdf")
+plt.close()
+
+
+
+
+plt.figure(figsize=(10,5))
+
+plt.xlabel("Epochs[#]")
+plt.ylabel("CIFAR10\nParams")
+
+
+e1=np.loadtxt("results_new50_2/set2_mlp_srelu_sgd_cifar10_params.txt")
+e2=np.loadtxt("results_new10_2/set2_mlp_srelu_sgd_cifar10_params.txt")
+plt.plot(e1,label="set2 50",  linewidth=0.7)
+plt.plot(e2,label="set2 10",  linewidth=0.7)
+plt.legend(bbox_to_anchor=(1.1, 1.05))
+plt.grid(True)
+plt.tight_layout()
+plt.savefig("cifar10_models_performance_params.pdf")
 plt.close()
