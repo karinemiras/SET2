@@ -100,7 +100,7 @@ class SET_MLP_CIFAR10:
         # set model parameters
         self.epsilon = 20 # control the sparsity level as discussed in the paper
         self.zeta = 0.3 # the fraction of the weights removed
-        self.batch_size = 100 # batch size
+        self.batch_size = 20#100 # batch size
         self.maxepoches = 1000 # number of epochs
         self.learning_rate = 0.01 # SGD learning rate
         self.num_classes = 10 # number of classes
@@ -215,6 +215,7 @@ class SET_MLP_CIFAR10:
 
         # training process in a for loop
         self.accuracies_per_epoch=[]
+        self.accuracies_per_epoch_tr=[]
         for epoch in range(0,self.maxepoches):
 
             sgd = optimizers.SGD(lr=self.learning_rate, momentum=self.momentum)
@@ -228,6 +229,7 @@ class SET_MLP_CIFAR10:
                                  initial_epoch=epoch-1)
 
             self.accuracies_per_epoch.append(historytemp.history['val_acc'][0])
+            self.accuracies_per_epoch_tr.append(historytemp.history['acc'][0])
 
             #ugly hack to avoid tensorflow memory increase for multiple fit_generator calls. Theano shall work more nicely this but it is outdated in general
             self.weightsEvolution()
@@ -235,6 +237,7 @@ class SET_MLP_CIFAR10:
             self.create_model()
 
         self.accuracies_per_epoch=np.asarray(self.accuracies_per_epoch)
+        self.accuracies_per_epoch_tr=np.asarray(self.accuracies_per_epoch_tr)
 
     def read_data(self):
 
@@ -279,7 +282,7 @@ if __name__ == '__main__':
     # save accuracies over for all training epochs
     # in "results" folder you can find the output of running this file
     np.savetxt("results_"+config.exp_name+"/set_mlp_srelu_sgd_cifar10_acc.txt", np.asarray(model.accuracies_per_epoch))
-
+    np.savetxt("results_"+config.exp_name+"/set_mlp_srelu_sgd_cifar10_acc_tr.txt", np.asarray(model.accuracies_per_epoch_tr))
 
 
 

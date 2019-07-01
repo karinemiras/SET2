@@ -412,7 +412,7 @@ if __name__ == '__main__':
 
     # save accuracies over for all training epochs
     # in "results" folder you can find the output of running this file
-    np.savetxt("results_" + config.exp_name + "/set2_mlp_srelu_sgd_cifar10_acc_all.txt", np.asarray(model.all_accuracies))
+    #np.savetxt("results_" + config.exp_name + "/set2_mlp_srelu_sgd_cifar10_acc_all.txt", np.asarray(model.all_accuracies))
 
 
 

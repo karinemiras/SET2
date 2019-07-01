@@ -89,7 +89,7 @@ class MLP_FixProb_CIFAR10:
         self.config = config
         # set model parameters
         self.epsilon = 20 # control the sparsity level as discussed in the paper
-        self.batch_size = 100 # batch size
+        self.batch_size = 20#100 # batch size
         self.maxepoches = 1000 # number of epochs
         self.learning_rate = 0.01 # SGD learning rate
         self.num_classes = 10 # number of classes
@@ -167,6 +167,7 @@ class MLP_FixProb_CIFAR10:
                                  )
 
         self.accuracies_per_epoch=historytemp.history['val_acc']
+        self.accuracies_per_epoch_tr=historytemp.history['acc']
 
     def read_data(self):
 
@@ -211,7 +212,7 @@ if __name__ == '__main__':
     # save accuracies over for all training epochs
     # in "results" folder you can find the output of running this file
     np.savetxt("results_"+config.exp_name+"/fixprob_mlp_srelu_sgd_cifar10_acc.txt", np.asarray(model.accuracies_per_epoch))
-
+    np.savetxt("results_"+config.exp_name+"/fixprob_mlp_srelu_sgd_cifar10_acc_tr.txt", np.asarray(model.accuracies_per_epoch_tr))
 
 
 

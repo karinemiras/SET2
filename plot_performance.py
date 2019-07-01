@@ -44,12 +44,33 @@ plt.xlabel("Epochs[#]")
 plt.ylabel("CIFAR10\nAccuracy [%]")
 
 
-e1=np.loadtxt("results_base/dense_mlp_srelu_sgd_cifar10_acc.txt")
-e2=np.loadtxt("results_base/fixprob_mlp_srelu_sgd_cifar10_acc.txt")
-e3=np.loadtxt("results_base/set_mlp_srelu_sgd_cifar10_acc.txt")
 e4=np.loadtxt("results_basebig/dense_mlp_srelu_sgd_cifar10_acc.txt")
 e5=np.loadtxt("results_basebig/fixprob_mlp_srelu_sgd_cifar10_acc.txt")
 e6=np.loadtxt("results_basebig/set_mlp_srelu_sgd_cifar10_acc.txt")
+
+plt.plot(e4*100,label="dense",  linewidth=0.7)
+plt.plot(e5*100,label="fix",  linewidth=0.7)
+plt.plot(e6*100,label="set",  linewidth=0.7)
+
+
+plt.legend(bbox_to_anchor=(1.1, 1.05))
+plt.grid(True)
+plt.tight_layout()
+plt.savefig("cifar10_models_performance_2.pdf")
+plt.close()
+
+
+
+
+plt.figure(figsize=(10,5))
+
+plt.xlabel("Epochs[#]")
+plt.ylabel("CIFAR10\nAccuracy [%]")
+
+
+e1=np.loadtxt("results_base/dense_mlp_srelu_sgd_cifar10_acc.txt")
+e2=np.loadtxt("results_base/fixprob_mlp_srelu_sgd_cifar10_acc.txt")
+e3=np.loadtxt("results_base/set_mlp_srelu_sgd_cifar10_acc.txt")
 e7=np.loadtxt("results_new10/set2_mlp_srelu_sgd_cifar10_acc.txt")
 e8=np.loadtxt("results_new20/set2_mlp_srelu_sgd_cifar10_acc.txt")
 e9=np.loadtxt("results_new30/set2_mlp_srelu_sgd_cifar10_acc.txt")
@@ -60,9 +81,6 @@ e12=np.loadtxt("results_new10_2/set2_mlp_srelu_sgd_cifar10_acc.txt")
 plt.plot(e1*100,label="dense (sample)",  linewidth=0.7)
 plt.plot(e2*100,label="fix (sample)",  linewidth=0.7)
 plt.plot(e3*100,label="set (sample)",  linewidth=0.7)
-plt.plot(e4*100,label="dense",  linewidth=0.7)
-plt.plot(e5*100,label="fix",  linewidth=0.7)
-plt.plot(e6*100,label="set",  linewidth=0.7)
 #plt.plot(e7*100,label="set2 (sample) 10",  linewidth=0.7)
 #plt.plot(e8*100,label="set2 (sample) 20,  linewidth=0.7")
 #plt.plot(e9*100,label="set2 (sample) 30,  linewidth=0.7")
@@ -87,7 +105,7 @@ plt.plot(e12*100,label="set2 (sample) 10.",  linewidth=0.7)
 plt.legend(bbox_to_anchor=(1.1, 1.05))
 plt.grid(True)
 plt.tight_layout()
-plt.savefig("cifar10_models_performance_2.pdf")
+plt.savefig("cifar10_models_performance_bb.pdf")
 plt.close()
 
 
@@ -106,5 +124,26 @@ plt.plot(e2,label="set2 10",  linewidth=0.7)
 plt.legend(bbox_to_anchor=(1.1, 1.05))
 plt.grid(True)
 plt.tight_layout()
-plt.savefig("cifar10_models_performance_params.pdf")
+plt.savefig("cifar10_models_performance_params_1.pdf")
+plt.close()
+
+
+
+plt.figure(figsize=(10,5))
+
+plt.xlabel("Epochs[#]")
+plt.ylabel("CIFAR10\nParams")
+e1=np.loadtxt("results_final/dense_mlp_srelu_sgd_cifar10_acc.txt")
+e2=np.loadtxt("results_final/fixprob_mlp_srelu_sgd_cifar10_acc.txt")
+e3=np.loadtxt("results_final/set_mlp_srelu_sgd_cifar10_acc.txt")
+e4=np.loadtxt("results_final/set2_mlp_srelu_sgd_cifar10_acc.txt")
+
+plt.plot(e1*100,label="dense",  linewidth=0.7)
+plt.plot(e2*100,label="fix",  linewidth=0.7)
+plt.plot(e3*100,label="set",  linewidth=0.7)
+plt.plot(e4*100,label="set2",  linewidth=0.7)
+plt.legend(bbox_to_anchor=(1.1, 1.05))
+plt.grid(True)
+plt.tight_layout()
+plt.savefig("cifar10_models_performance_sb.pdf")
 plt.close()

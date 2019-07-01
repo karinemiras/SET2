@@ -13,6 +13,11 @@
 #python set2_mlp_keras_cifar10.py --sample_prop 0.02 --epochs_per_generation 30 --exp_name new30
 #python set2_mlp_keras_cifar10.py --sample_prop 0.02 --epochs_per_generation 40 --exp_name new40
 
-python set2_mlp_keras_cifar10.py --sample_prop 0.02 --epochs_per_generation 50 --exp_name new50_2
-python set2_mlp_keras_cifar10.py --sample_prop 0.02 --epochs_per_generation 10 --exp_name new10_2
+#python set2_mlp_keras_cifar10.py --sample_prop 0.02 --epochs_per_generation 50 --exp_name new50_2
+#python set2_mlp_keras_cifar10.py --sample_prop 0.02 --epochs_per_generation 10 --exp_name new10_2
+
+python dense_mlp_keras_cifar10.py --sample_prop 0.02 --exp_name final
+python fixprob_mlp_keras_cifar10.py --sample_prop 0.02 --exp_name final
+python set_mlp_keras_cifar10.py --sample_prop 0.02 --exp_name final
+python set2_mlp_keras_cifar10.py --sample_prop 0.02 --epochs_per_generation 10 --exp_name final
 
