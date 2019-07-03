@@ -37,6 +37,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
+plt.ylim(0, 100)
 
 plt.figure(figsize=(10,5))
 
@@ -115,7 +116,7 @@ plt.figure(figsize=(10,5))
 
 plt.xlabel("Epochs[#]")
 plt.ylabel("CIFAR10\nParams")
-
+plt.ylim(0, 100)
 
 e1=np.loadtxt("results_new50_2/set2_mlp_srelu_sgd_cifar10_params.txt")
 e2=np.loadtxt("results_new10_2/set2_mlp_srelu_sgd_cifar10_params.txt")
@@ -130,7 +131,7 @@ plt.close()
 
 
 plt.figure(figsize=(10,5))
-
+plt.ylim(0, 100)
 plt.xlabel("Epochs[#]")
 plt.ylabel("CIFAR10\nParams")
 e1=np.loadtxt("results_final/dense_mlp_srelu_sgd_cifar10_acc.txt")
@@ -146,4 +147,20 @@ plt.legend(bbox_to_anchor=(1.1, 1.05))
 plt.grid(True)
 plt.tight_layout()
 plt.savefig("cifar10_models_performance_sb.pdf")
+plt.close()
+
+
+plt.figure(figsize=(10,5))
+
+plt.xlabel("Epochs[#]")
+plt.ylabel("CIFAR10\nParams")
+e1=np.loadtxt("results_new10_2/set2_mlp_srelu_sgd_cifar10_acc.txt")
+e4=np.loadtxt("results_final/set2_mlp_srelu_sgd_cifar10_acc.txt")
+
+plt.plot(e1*100,label="dense",  linewidth=0.7)
+plt.plot(e4*100,label="set2",  linewidth=0.7)
+plt.legend(bbox_to_anchor=(1.1, 1.05))
+plt.grid(True)
+plt.tight_layout()
+plt.savefig("test.pdf")
 plt.close()
